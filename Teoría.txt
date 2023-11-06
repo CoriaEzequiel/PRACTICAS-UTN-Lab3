@@ -1075,3 +1075,5 @@ limpio a la vista del desarrollador, en caso de que desee acceder al index.js (o
 donde sea que hayamos puesto los proveedores).
 Agregamos la carpeta util a components, y en ella creamos el componente
 WrapperProvider, de la siguiente manera:
+
+El contexto en React es una forma de pasar datos a través del árbol de componentes sin tener que pasar props manualmente en cada nivel. Es especialmente útil para los datos que necesitan ser accesibles por muchos componentes en diferentes niveles de anidamiento.
