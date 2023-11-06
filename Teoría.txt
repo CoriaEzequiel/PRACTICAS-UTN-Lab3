@@ -1,0 +1,1077 @@
+Unidad 1.1 
+Introducción a React y JS moderno
+Introducción a React
+¿Qué es React?
+React, o React.js como es correctamente llamado, nos anuncia en su propia página como
+debemos definirlo:
+Una biblioteca Javascript para construir interfaces de usuario
+El nombre de React viene del adjetivo reactive que nos da a entender que lo que buscamos
+son interfaces de usuario reactivas al input del mismo, que se comporten de manera similar
+a una app de nuestro teléfono.
+En tiempos anteriores, las páginas web poseían un cierto delay en la obtención de
+contenidos, esto es debido a que se debía realizar un "pedido" al servidor y este a su vez
+tenía que devolver la página HTML con el contenido deseado.
+Entonces, Javascript viene a salvarnos de ese delay, ya que corre en el navegador, es decir,
+en la página ya cargada. Con este lenguaje podemos manipular el DOM de HTML
+(DOM,DocumentObjectModel, que analizaremos en profundidad más adelante) y así lograr
+que el usuario sienta una mayor fluidez dentro del sitio web, obteniendo una experiencia
+mucho más refinada y eficiente.
+Pero entonces, ¿Por qué no usamos directamente Javascript en vez de React?
+¿Por qué usar React?
+La razón por la que usamos React y no Vainilla JS es la misma razón de porqué utilizamos
+C# en vez de C o C++, o por qué utilizamos Python en vez de Pascal o Node.js en vez de
+PHP. Como desarrolladores de software, siempre vamos a buscar agilizar nuestros
+procesos para conseguir escribir mejor código en menos tiempo. Menos código a su
+vez nos permite obtener un código más prolijo, más legible y más sencillo de testear.
+La implementación de React nos permite además la reutilización de bloques de código
+funcionales.
+Construir SPA’s con React
+Las single page application o SPA (aplicaciones de única página) son aplicaciones web que
+se traen del servidor una sola página (llamada index.html o main.html) que se encargará de
+realizar la totalidad del manejo del sistema web front-end. Esto es ampliamente diferente 
+almanejo de páginas múltiples antiguo, donde cada página de HTML era servida al usuario
+para su navegación. La posibilidad de que la navegación (movernos entre distintas páginas
+internas del sistema web) sea tan fluida es porque siempre estamos navegando dentro del
+mismo documento HTML.
+React vs Angular vs Vue
+La principal ventaja de React sobre sus competidores de front-end es la flexibilidad de uso,
+ya que al ser React una librería basada en componentes, solo cubre las funcionalidades
+más básicas del desarrollo front-end. Es decir, su principal ventaja es su principal
+desventaja a la vez.
+Angular, en cambio, es un framework lleno de funcionalidades y utiliza Typescript. Lo que
+sucede con Angular es que ha perdido relevancia a medida que avanza el tiempo (más que
+nada en mercados norteamericanos) y es considerado para proyectos pequeños o
+medianos lo que se denomina como overkill, es decir, demasiado para los requerimientos
+del cliente.
+Vue es un mix de los dos, toma lo mejor de ambos mundos y los implementa (la estructura
+de Angular (por ejemplo, con el uso de directivas) y la lógica de componentes de React). Su
+principal desventaja es que aún no ha tomado la fuerza necesaria ni tampoco tiene la
+comunidad gigantesca que poseen los otros dos.
+En el momento en que se está escribiendo este documento, es React la librería front-end
+más usada y más requerida a nivel laboral, no debemos descartar sin embargo la
+posibilidad no tan remota de que Vue de aquí a 5 años sea el nuevo líder.
+Javascript moderno
+Para poder escribir código React de manera eficiente, es muy común utilizar lo que se
+conoce como "Javascript moderno", que refiere a funcionalidades ES6+ (ecmascript 6 y
+posteriores). Esto es debido a que dichas funcionalidades nos aportan mejoras (tal como la
+conocida arrow function que además de ser más sencilla de escribir nos libera del concepto
+de this en JS) como atajos de manera que escribamos menos código (conceptos como
+destructuring).
+let vs const
+Dos palabras claves altamente utilizadas, en especial const. Ellas nos permiten crear
+variables de manera similar a var. Justamente, lo que antes se conocía como var en JS fue
+reemplazado por let y const. Además, detrás de escena, ellas también están atadas al
+concepto de scope que refiere a que pertenecen al bloque de código donde fueron creadas.
+● let: Se utiliza para valores variables.
+● const: Se utiliza para declarar un valor "constante", es decir, un valor que no planea
+ser cambiado en el futuro. 
+Spread & Rest operators
+En realidad, es un solo operador, denotado por el símbolo de puntos suspensivos (...). Lo
+llamaremos de manera spread (la más utilizada) o Rest según el uso que le demos.
+Spread
+Se utiliza para "distribuir" los valores (en caso de utilizarse en un arreglo) o las propiedades
+(en el caso de utilizarse en un objeto)
+Rest
+Se utiliza para elaborar un merge entre los argumentos de una función, resultando en la
+conformación de un arreglo con los mismos
+Destructuring 
+El proceso de destructuring nos facilita extraer elementos de un arreglo o propiedades de un objeto.
+Array functions
+Las funciones aplicadas a arreglos (array functions) son funciones que nos permiten
+modificar un arreglo original. Hay una amplia variedad de ellas, aquí mostraremos solo el
+funcionamiento de 3 y nombraremos algunas más.
+map()
+Esta función nos permite realizar cambios sobre cada uno de los elementos en un arreglo.
+Retorna un nuevo arreglo con la forma deseada
+
+filter()
+Esta función nos permite crear un sub-arreglo que contenga todos los elementos que
+cumplen cierta condición. También nos devuelve un arreglo
+reduce()
+Es una función que justamente nos permite reducir un arreglo de valores a un solo valor (útil
+para realizar sumatorias, o promedios, por ejemplo). Nos devuelve un valor. 
+Unidad 1.2
+Lógica de componentes
+Conceptos básicos del código de React
+Lógica de componentes
+Recordemos de la primera clase, como es qué React se nos presenta:
+React es una librería de JavaScript para construir interfaces de usuario
+Esto está muy bien pero, ¿No es acaso también posible construir interfaces de usuario con
+HTML, CSS y JS? Pues claro, pero lo que nos permiten las librerías como React es
+construir interfaces de usuario complejas, interactivas y reactivas al usuario, de una
+manera mucho más simple que sólo con las 3 herramientas nombradas anteriormente.
+¿Cuál es el secreto de React para simplificar estos apartados complejos? React utiliza lo
+denominado lógica de componentes. Todas las interfaces de usuario, al final del día, están
+compuestas por componentes.
+¿Qué son los componentes? Son bloques de código que funcionan como unidad principal
+de trabajo en la librería React. Se trabaja con componentes por razones principales:
+● Reusabilidad: después de crear un componente el mismo puede ser usado en
+distintas partes del sistema web. Esto nos ayuda a evitar repeticiones.
+● Separación de funcionalidades: ya que cada componente podrá tener su lógica
+interna, evitaremos problemas comunes como demasiado código en un solo archivo.
+¿Cómo se construyen los componentes? Como toda interfaz de usuario moderna, los
+componentes están compuestos por HTML5, CSS3 y JS. La diferencia es que React utiliza
+un acercamiento declarativo en la construcción de estos componentes, donde nosotros
+definiremos el estado deseado de los elementos en el sitio web, y React se encargará de
+traducirlos al mismo. Es como si nosotros construyéramos nuestros propios elementos
+HTML.
+Creando un nuevo proyecto de React
+Para la creación de nuevo proyecto React utilizaremos la herramienta create-react-app, con
+la cuál con una sóla línea de comando podremos tener listo un nuevo proyecto, incluyendo
+las optimizaciones necesarias, la posibilidad incorporada de salida a producción y un
+servidor de desarrollo local donde podremos ver los cambios que realicemos a nuestro sitio
+web en tiempo real.
+Para poder correr la anterior línea de comando, debemos instalar (o tener instalado) Node.js
+en la computadora. Esto no es necesario para correr el código (Node.js nos sirve para
+correr código JavaScript fuera del navegador, pero React funciona en el navegador) sino
+para poder realizar las instalaciones de los paquetes (como create-react-app) mediante
+npm (nodepackage manager).
+Vamos a abrir una terminal en la computadora y vamos a dirigirnos a la carpeta donde 
+queremos instalar el proyecto. Cuando estemos allí, correremos el siguiente comando en 
+consola: npxcreate-react-app books-champion Nos va a solicitar que instalemos el paquete 
+create-react-app y le decimos que sí (y). Luego de terminada la instalación, correremos los 
+siguientes comandos: cd books-championnpmstart Se nos abrirá una página custom de 
+bienvenida de React, en caso de que todo haya sido instalado correctamente.
+Ahora, vamos a editar el código de esta página para comprobar su funcionamiento. Abrimos
+la carpeta en VSC (podemos en la misma carpeta abrir una terminal y tipear code . (punto)).
+Allí veremos varios archivos:
+● package.json, contiene la información de los paquetes instalados (nombre y
+versionados), junto con las dependencias instaladas.
+● La carpeta src (source), donde se encuentra el código fuente de toda la página.
+● La carpeta node_modules, donde están instalados todos los paquetes para que
+funcione React (y donde se van a instalar las futuras librerías que usemos). El
+nombre de la misma aparece en gris porque esta carpeta NO DEBEMOS subirla a
+git.
+Realizaremos un poco de limpieza en la carpeta src para comenzar nuestro proyecto:
+1. En la carpeta src, solo dejaremos los archivos: App.js, index.css e index.js. 2. Dentro del archivo App.js, borraremos todo lo que se encuentra dentro del return
+menos el div principal (borrar su atributo de clase igualmente). Borraremos también
+ambos import.
+3. Agregaremos dentro de dicho div un h2 que diga "Books-Champion-App".
+4. En el archivo index.css copiaremos el siguiente código: Código CSS
+Analizando un proyecto de React
+Si bien casi siempre hablamos de "este sistema web está escrito en React", "esta aplicación
+fue construida con React" es importante notar que los componentes siempre van a estar
+escrito en JavaScript (o TypeScript, si lo preferimos). De React vamos a aprovecharnos de
+parte de su sintaxis propia y de sus funcionalidades (métodos del ciclo de vida, hooks, etc)
+El archivo index.js será el archivo que será servido al servidor y será el que veamos en
+localhost:3000, sin embargo, el archivo no será servido como está escrito allí, sino que
+React se encargará de optimizarlo y traducirlo no sólo para que corra en el navegador
+instalado (como por ejemplo Google Chrome) sino en todo tipo de navegadores junto
+también a versiones anteriores de lo mismo. 
+Buscamos siempre entonces que nuestro sistema web sea compatible con la mayor
+cantidad de navegadores y versiones de los mismos.
+Este proceso de traducción y optimización es disparado por el comando npmstart, realizado
+antes de servir nuestra aplicación en el servidor de desarrollo local. Esto se puede ver en
+por ejemplo la línea de código:
+import ‘index.css’;
+Ya que es imposible importar un archivo entero de css a otro de JS. O por ejemplo en la
+sintaxis de <App />, que tampoco es sintaxis nativa de JavaScript.
+Vamos a explicar un poco el siguiente código de index.js:
+Los primeros dos import importan al archivo los objetos que representarán a las librerías
+React y ReactDOM. Ambas en conjunto forman React, solo que están separadas por
+cuestiones de funcionalidad. Podemos visualizar que ambas se encuentran listadas en
+package.json.
+ReactDOM va a llamar a uno de sus métodos, llamado Render, donde su primer parámetro
+es código similar a HTML, pero que no es HTML. Este código es una sintaxis de React
+llamada JSX. Profundizaremos más en JSX en la próxima sección, pero por ahora, es
+menester saber que nos permite escribir código JS que se lea similar a HTML.
+Allí, vemos por qué importamos React, en donde dice React.StrictMode, este componente
+nos permitirá reforzar código limpio y que siga las buenas prácticas de React, dándonos
+advertencias en consola cuando no logramos hacerlo. Se aplicará sobre todos los
+componentes que encierre (en este caso, App).
+En la cuarta línea, vemos que importamos el componente "App" de './App', el ./ significa que
+nos paramos en la misma carpeta, y buscamos el archivo App.js (no es necesario agregar el
+js en React). Luego, a ese componente lo vemos insertado en el primer atributo como si
+fuera un elemento HTML (<App />).
+Por último, el segundo atributo es código normal de JS de navegador, donde mediante el
+objeto document seleccionamos un elemento del mismo por el id = 'root'. ¿Dónde está ese
+elemento? Se encuentra dentro de la carpeta public, en index.html. Este es el único
+documento que serviremos al navegador. Fijémonos que está compuesto solo por un div,
+que es donde se inyectará nuestra aplicación. React es una librería que funciona como
+SPA (single page application), así que todo nuestro sistema web estará alojado en ese
+documento HTML.
+Ahora, exploremos el archivo App.js
+Vemos que es una función común de JS, llamada App (notemos que no usamos camelCase
+para el nombre de los componentes) que retorna una sintaxis extraña y claramente no
+válida en JS. Además de eso, vemos que se exporta el componente por default (y
+recordemos de la sección de JS moderno, por eso lo importamos como lo importamos en
+index.js).
+Pero, ¿Qué significa esa sintaxis tan extraña y cómo podemos interpretarla?
+JSX
+JSX es un acrónimo de JavaScript XML, ya que al fin de cuentas, HTML y XML son
+descendientes del mismo lenguaje (SGML). Entonces, gracias a React podemos tener
+código HTML en nuestros archivos JS, ya que esto no funcionará si React no realizará toda
+la traducción y optimización del código.
+Nota: Intentaremos llamar JSX siempre que podamos, aunque es común entre los
+desarrolladores react decirle HTML al JSX retornado por las funciones
+¿Cómo funciona React entonces? El código JSX y la lógica del componente es el estado
+deseado que queremos ver en el navegador, y React se encarga de presentarlo al servidor.
+Si abajo del h2 agregamos la siguiente línea de código:
+<p>¡Quiero leer libros!</p>
+Al guardar, chequeamos la página y vemos que automáticamente se agregó el párrafo
+deseado.
+Comparemos lo que nos costaría realizar el mismo proceso en JavaScript normal
+const parag = document.createElement('p');
+parag.textContext = '¡Quiero leer libros!';
+document.getElementById('root').append(parag);
+Como podemos imaginar, a medida que construyamos sistemas web más complejos, con
+mayor interacción con el usuario y estados cambiantes (cambio de los estilos, aparición y
+desaparición de elementos, etc), escribir código de esta manera se volvería tedioso y difícil
+de llevar seguimiento.
+Construyendo nuestro primer componente
+Creación
+Es práctica común poner los nuevos componentes en su propia carpeta dentro de src. Esto
+se hace para evitar meter todos los componentes al mismo nivel, y de esta forma ser más
+organizados. El componente "App" si se deja en el lugar que fue creado, ya que es un
+componente especial al ser el componente raíz, es decir, todos los componentes van a ser
+hijos de este componente, en forma tipo árbol.
+Creamos entonces la carpeta components, y dentro agregaremos un archivo llamado
+BookItem.js. Los componentes, en líneas generales, se suelen llamar con mayúscula inicial
+en cada palabra.
+Dentro de este archivo escribiremos nuestro primer componente, pero, ¿Cómo? Debemos
+recordar que todos los componentes son funciones (al menos, a partir de React 16) que
+retornan el jsx que necesitamos. Probemos entonces con:
+Ese componente entonces retorna el texto "BookItem" dentro de un div. Luego, debemos
+exportar el componente para que lo podamos usar en otros archivos.
+Iremos al componente "App" e importamos "BookItem", de la siguiente manera
+A BookItem lo escribimos simplemente como si fuera una etiqueta cerrada de HTML. Aquí
+vemos porque son importantes las mayúsculas al momento de nombrar el componente. Sin
+ellas, React consideraría que es un elemento nativo de HTML (como h2, p, div) y no sabría
+como interpretarlo, ni hacer la relación con nuestro componente custom.
+Refrescamos la página y vemos que se ha agregado el componente a la pantalla del
+usuario.
+¡Hemos creado nuestro primer componente! Vamos a agregar más información a
+"BookItem"
+Al jsx que retorna, agreguemosle un h2 para el título, un h3 para el autor, un div que
+contenga la fecha y un elemento p para la cantidad de páginas.
+Vemos que el IDE nos da error. Esto es debido a una de las reglas más importantes de
+React: todo jsx que es retornado debe tener un solo elemento raíz. En nuestro caso, al tener
+dos divs al mismo nivel como raíz, nos da un error. Más adelante, pensaremos una forma
+más prolija y moderna de solucionar este error, pero por ahora con encerrar todo nuestro
+código en un div, nos basta.
+Podríamos cambiar los contenidos de las etiquetas por algo que refleje un verdadero
+"BookItem", quedandonos así
+Vemos que a niveles más adentro del árbol, no hay problemas en poner dos elementos al
+mismo nivel, es solo la etiqueta raíz la que debe estar sola.
+Mostrando valores dinámicos en pantalla
+Como se estará imaginando el alumno, no sólo tendremos un libro leído en nuestra
+aplicación y, sobre todo, los datos de ese libro no estarán hardcoded en el mismo HTML,
+sino que sus valores serán dinámicos. Deseamos entonces poseer múltiples componentes
+con datos que pueden cambiar en el tiempo. Para ello, vamos a crear variables que
+guardarán los valores actuales de nuestro libro, de la siguiente manera:
+Allí definimos un nuevo objeto date, con la fecha que deseemos escrita como cadena, el
+título que deseamos también como cadena y la cantidad de páginas.
+¿Cómo haremos para que React muestre el contenido de nuestras variables en la pantalla?
+Sencillamente, utilizaremos llaves { } , las cuales nos permiten poner código JS que se
+resuelve en un valor. Por ejemplo, si dentro del h2 colocamos { 1 + 1}, en pantalla nos
+aparecerá el número 2. Si ponemos { 5>6 ? 'Yes' : 'No' } esa expresión ternaria se resuelve
+por No, y es lo que veremos en pantalla.
+Escribiremos el código entonces de la siguiente forma:
+Nota 1: debemos agregarle el método toString() a el objeto date ya que el compilador no
+entiende cómo interpretarlo para mostrar en pantalla directamente. Más adelante veremos
+como emprolijar esta salida.
+Nota 2: podemos combinar salida común con expresiones JS, como es el caso de la
+cantidad de páginas. 
+Para llegar al estilizado anterior, agregaremos las clases de BookItem.css y también,
+temporalmente, agregamos el selector .book-item-container del código de BookCard.css .
+Gracias a las bondades de WebPack y Babel configurada con sus respectivos presets (todo
+esto instalado cuando creamos nuestro proyecto React detrás de escena), podemos realizar
+la importación de estilos de esa manera.
+Luego para aplicar las clases a los distintos elementos, no usaremos la palabra class sino
+className. Recordemos que si bien esto parece HTML, es en realidad JS, entonces la
+palabra class es una palabra reservada, y se intenta reforzar que no la utilicemos.
+props en React
+Pasando data mediante props
+Ya podemos observar la re-usabilidad de los componentes copiando y pegando
+<BookItem/> varias veces, y veremos allí en la pantalla que el componente se multiplica. Si
+bien esto nos permite utilizar el componente varias veces y en distintas partes, no es
+realmente "reusable" ya que la data que estamos imprimiendo en pantalla es siempre la
+misma.
+¿Cómo podemos aprovechar al máximo esta funcionalidad entonces? Utilizaremos el
+concepto similar al de parámetros dentro de las funciones de JavaScript, llamado props,
+(properties) que nos permitirá pasar diferente data a los componentes.
+Veamos un ejemplo, si tuviéramos el componente "App":
+const App = ()=>{
+const goalItem = '¡Recibirme!'
+return<CourseGoals/>
+} 
+Y quisiéramos pasárselo al componente "CourseGoals":
+const CourseGoals = () =>
+{
+return (<ul>
+<li>{goalItem}</li>
+</ul>) }
+No podríamos hacerlo directamente, ya que "CourseGoals" no conoce a la variable
+goalItem. Lo que sí podemos hacer es pasarsela al componente hijo desde el componente
+padre, como una propiedad, de la siguiente manera:
+const App = ()=>{
+const goalItem = '¡Recibirme!'
+return
+<CourseGoalsgoal={goalItem}/>
+}
+Como si fuera un atributo de la etiqueta HTML. Luego, en el componente hijo:
+const CourseGoals = (props) =>
+{ return
+(<ul>
+<li>{props.goal}</li>
+</ul>)
+}
+props es el objeto que viene incluido en todo componente de React, puede poseer el
+nombre que queramos pero en general se lo llama props. De esta manera, el componente
+hijo puede acceder a atributos que posee el componente padre.
+Veamoslo en nuestro proyecto:
+Vamos a copiar y pegar el componente "BookItem" cuatro veces. Luego vamos a crear una
+variable en "App" llamada simplemente books, que será un arreglo de objetos con cuatro
+objetos: nuestro libro que creamos en el componente "BookItem" y tres más que se nos
+ocurran. Todos los objetos poseerán cuatro atributos: title, author, pageCount, date. 
+Ahora, iremos a ver en pantalla si se aplicaron los diferentes títulos, cantidad de páginas y
+fechas.
+Vemos que no se aplicaron. ¿Por qué es eso? Definitivamente es porque no los declaramos
+en el componente "BookItem" mediante el objeto props. Además de aplicarlo, borraremos la
+lógica antigua del componente y haremos destructuring sobre props para obtener de
+manera más limpia las propiedades……
+Composición en React
+¿A qué nos referimos con el concepto de composición en React? La composición la
+efectuamos en el momento en que utilizamos a un componente como "cáscara" de otros
+componentes, en general, para aplicar los mismos estilos a los componentes que se
+encuentran encerrados.
+Pensemos en un componente llamado por ejemplo "Layout", que es el layout de las
+pantallas de nuestro sistema web. Es muy probable que queramos que todas las pantallas
+posean el mismo estilo y los mismos componentes compartidos (por ejemplo, que en todas
+las pantallas del sistema se vea la barra de navegación superior).
+Veremos cómo lograr esto en nuestro mini proyecto. Buscamos crear un componente
+"BookCard" que aplique las sombras al elemento y las puntas redondeadas, entonces cada
+vez que deseemos que un elemento se vea como una tarjeta, directamente lo encerramos
+dentro de nuestro componente "BookCard".
+Como primer paso, creamos el componente en nuestra carpeta de componentes, junto a su
+archivo de estilos vacío.
+Lo que deseamos es que el selector de clase de BookItem (book-item-container) pase a
+este nuevo componente, de manera que el estilizado principal quede en el componente
+BookCard.
+Entonces, el div que encubre a todo el componente "Books" y a todo el componente
+"BookItem" lo cambiaremos por el componente "BookCard" (recordemos importarlo al
+archivo para poder usarlo).
+Pero, ¿Cómo hacemos el enlace correctamente, para que el componente "BookCard"
+funcione como "cubierta" del componente "BookItem" y que no esté al mismo nivel que él?
+React, dentro del objeto props al que tienen acceso todos los componentes, posee una
+propiedad llamada children que tomará el lugar de lo que nosotros encerremos. Es decir,
+en el ejemplo anterior, children sería igual a esta porción de código:
+Entonces, para reflejar donde colocaremos el código que encerramos, utilizamos
+props.children en el componente Wrapper (que en nuestro caso, es el componente
+"BookCard").
+Unidad 2.1
+Manejo de state en React
+Introducción
+Hasta este momento, nuestro mini-proyecto creado no es muy interesante para el usuario,
+ya que solo nos provee valores estáticos que no podemos interactuar o cambiar. Por
+ejemplo, no podemos agregar nuevos libros que leímos ni borrar los que ya vienen de
+nuestro código. En las siguientes secciones veremos cómo manejar eventos e interacciones
+con el usuario para darle dinamismo a nuestra aplicación.
+Manejo de eventos
+Vamos a agregar un botón que cambie el título del libro que estamos leyendo. Agregamos
+un elemento button a el jsx del componente "BookItem", abajo del contador de páginas. No
+se verá muy bonito en la pantalla pero luego lo estilizaremos, nos concentramos ahora en lofuncional.
+A todos los elementos de jsx que hacen de elementos de HTML se le pueden pasar como
+props los manejadores de eventos que su contraparte de HTML posee (pensemos en
+eventos como onClick, onFocus). Entonces, podemos agregar al elemento button un
+atributo onClick.
+Pero, ¿Cómo lo escribimos? A onClick le vamos a pasar una función entre las llaves, ya
+que son atributos que esperan ejecutar código ante interacción del usuario. Escribiremos
+entonces:
+Ese código nos muestra que cada vez que hacemos click en el botón, en consola imprimirá
+"Clicked!!". Lo comprobamos apretando F12 en el navegador.
+Recordemos que es ideal que no tengamos demasiado código en nuestro jsx, por eso
+moveremos está lógica a una variable más arriba y luego haremos referencia directamente
+a la misma en el botón:
+Un par de cosas a remarcar:
+● Dentro del jsx, donde hacemos referencia a la función clickHandler no ponemos
+paréntesis. ¿Por qué no? Porque si los pusiéramos, el compilador interpreta que en
+el momento que la lee debe ejecutarla, y no cuando realiza click. De esta
+manera, solo hacemos la referencia, y se ejecuta sólo cuando el usuario hace click.
+● Es buena práctica siempre que se manejan eventos de poner xxxxHandler como
+nombre de función, donde xxxx representa lo que nosotros queramos, pero siempre
+lo terminamos en Handler para dar a entender que esta función está relacionada a
+eventos y no a otra cosa. Esto es, de todas formas, opcional.
+Cómo React ejecuta las funciones de los componentes
+Declaramos dentro del componente una variable llamada titleUpdate con let, y la igualamos
+a title. Luego, dentro de nuestro clickHandler escribiremos la siguiente línea:
+titleUpdate = 'Actualizado!';
+Y en el jsx, cambiaremos title por titleUpdate. Vemos que en pantalla, al apretar el botón y
+disparar el método clickHandler, no sucede nada. Si chequeamos la consola, el
+console.log('Clicked!!') si es invocado. ¿Por qué no funciona nuestro cambio de variable?
+Sencillamente, porque React no funciona así.
+Pensemos que nuestros componentes son funciones con la única particularidad que
+retornan jsx. Al ser funciones deben ser invocados en algún momento. Por ejemplo,
+"BookItem" es invocado en el componente "Books", luego de haber invocado el componente
+"BookCard". El componente "BookItem" a su vez convoca también al componente
+"BookCard", para luego invocar "ReadDate", dónde "ReadDate" ya devuelve jsx puro de
+React.
+Todo está búsqueda se conoce como búsqueda en profundidad dentro de un árbol de
+decisiones, donde la raíz del árbol es el componente "App", que se invoca con la línea:
+ReactDOM.render( <App />, document.getElementById('root') );
+Una vez que se ha renderizado en pantalla todo el árbol, React ha terminado su trabajo. Es
+decir, que no se encargará de realizar cambios en lo provisto en la pantalla.
+A menos que nos aprovechemos del concepto de state.
+state en React
+Reflexionemos un poco sobre lo que queremos hacer:
+1. Deseamos cambiar el título de los libros, de lo que sea que nos vino por props a la
+cadena de texto 'Actualizado!!'.
+2. Para ello, debemos tomar lo que está en title y reemplazarlo de alguna manera.
+3. Luego React debe re-renderizar el componente y mostrar la nueva cadena para que
+el usuario vea el cambio en su pantalla.
+¡Parece un montón! Pero React nos proporciona, dentro de su librería, una función, del tipo
+hook o "gancho", llamada useState. Todos los hooks de React (y hay varios, además de que
+podemos crear los nuestros) comienzan con la palabra use. useState sólo puede ser
+llamada dentro del componente, no puede ser llamada fuera del mismo o dentro de una
+función anidada (como clickHandler).
+Entonces, dentro del componente llamaremos a useState(). useState recibe como
+parámetro el valor inicial que queremos darle a una variable que creará React. En este
+caso, le pasamos title.
+¿Que retorna useState? Retorna un arreglo con dos valores, el primer valor es nuestra
+nueva variable ya inicializada y el segundo es una función que nos servirá para setear el
+valor de dicha variable. Podemos utilizar array destructuring para obtener ambos, ya que
+en array destructuring solo importa la posición de los elementos.
+Es común que el primer elemento tenga un nombre representativo de lo que es, y el
+segundo sea la palabra set seguida del nombre del primer elemento. Entonces, dentro de nuestro clickHandler llamaremos a setNewTitle y le pasaremos como
+parámetro el nuevo título que deseamos actualizar, además de imprimirlo en consola en la
+misma función:
+Ahora si vemos que en pantalla nos cambian los textos de los títulos. Si nos fijamos en la
+consola, ahora nos imprime el valor viejo de la variable, siendo que la línea de console.log
+está después de setNewTitle(). Esto es debido a que la función no es llamada
+automáticamente sino asincrónicamente, es decir, se coloca en una cola para ser llamada
+posteriormente, mientras que console.log() se ejecuta luego de ser leída.
+Entonces, para poder cambiar la data que posee un componente debemos recurrir si o si
+al state, a variables guardadas dentro de la memoria de React. Nunca podremos hacer
+cambios directos en los componentes sin state.
+
+Algunas aclaraciones más de useState()
+● Cada state es particular para cada componente, es decir, el cambio de título que yo
+realizo en uno de los BookItem no se refleja en los otros BookItem. Además de eso,
+React solo hará la comparación y el re renderizado de ese componente y no de los
+otros. Esto lo podemos probar agregando la siguiente línea al componente:
+console.log('BookItem evaluado por React')
+Luego, si refrescamos la página, se imprimirá 4 veces la línea (cada vez que se
+renderiza un componente) pero al apretar uno de los botones, solo se imprimirá una
+vez.
+● Al state lo declaramos como const siendo que su primer valor del array va a estar
+cambiando constantemente ¿Por qué? Porque no podemos, por ejemplo, decir
+newTitle = 'Nuevo título' en nuestro código, pero si podemos utilizar la función
+setTitle('Nuevo título') que se encargará por detrás de realizar los pasos necesarios
+para mutar el arreglo.
+● La llamada a setTitle() dispara un nuevo renderizado del componente, pero useState
+no es llamado para reemplazar el título otra vez, ya que React sabe que hubo un
+cambio de estado desde la creación del componente, de manera que no lo
+reemplaza con el valor inicial que le aportamos, sino con el valor enviado por
+setTitle().
+Agregando nuevos libros mediante formularios
+Vamos a concentrarnos ahora en la creación de un formulario para que el usuario pueda
+registrar los nuevos libros que va leyendo. Esto nos permitirá aprender más sobre el state
+en React y cómo trabajar con la data provista a la aplicación.
+Crearemos una nueva carpeta dentro de components llamada NewBooks donde crearemos
+el componente NewBook junto a su estilizado:
+Carpeta con los estilos CSS
+El formulario en sí, se va a encontrar dentro de ese elemento div pero lo crearemos dentro
+de su propio componente llamado "BookForm" y luego lo exportamos:
+● El form lo dividiremos entonces en cuatro div principales junto al div que va a
+encerrar al botón de submit del formulario.
+● En el div de la fecha de lectura, ponemos estos valores mínimos y máximos ya que
+luego los necesitaremos para algunas funcionalidades de filtrado dentro de la app.
+● En el divde el input de cantidad de páginas, ponemos como mínimo 1 y como step o
+función de subida y bajada, también 1.
+Nos ocupamos de colocar a "BookForm" dentro de "NewBook", y luego importamos
+"NewBook" dentro de "App" para colocarlo en reemplazo del elemento p que teníamos
+antes.
+Escuchando el input de los usuarios
+Ahora bien, es de nuestro interés siempre estar al tanto de los cambios producidos en estos
+bloques input. Para ello nosotros podemos agregar ciertas props nativas de jsx, de manera
+que se encarguen de disparar una función que deseemos ante una interacción del usuario,
+similar a cuando el mismo hacia click sobre el botón "cambiar título".
+Entonces:
+<div className="new-book-control">
+<label>Título</label>
+<input type="text" onChange={changeTitleHandler} />
+</div>
+La función changeTitleHandler es una función que se ejecutará cada vez que ingresemos
+una letra, número o seleccionemos algo en un dropdown. Podríamos también utilizar la prop
+onInput pero ella sólo toma en cuenta los valores ingresados por teclado, y no los
+seleccionables.
+Todas las props nativas de jsx que invocan un evento, adhieren automáticamente el objeto
+event a la función asociada. Es decir, cada vez que se dispara un evento en el navegador, a
+nosotros se nos pasa como parámetro información sobre él mismo. Podemos verlo de la
+siguiente manera:
+El objeto event nos aporta muchísima información sobre el evento sucedido (en este caso,
+el input de un valor de texto por el usuario), pero lo que nos interesa a nosotros es lo que se
+encuentra dentro de target, en la propiedad value. Haremos console.log del mismo para
+verlo:
+Como observamos, event.target.value va a guardar siempre el último valor que se
+encuentra en el input en este momento. De esta manera, siempre podremos acceder a lo
+último que ingresó el usuario.
+Ahora, para poder llevar un registro interno de este valor en el componente, utilizaremos de
+vuelta el hookuseState de React, de la siguiente manera:
+Y la línea de console.log dentro de la función changeTitleHandler, la cambiaremos por el
+setEnteredTitle:
+Vemos que inicializamos a cada uno de los estados con una cadena de texto vacía. Esto es
+debido a que los valores obtenidos en elementos input siempre van a ser guardados en el
+objeto event como strings, incluso si el valor guardado es un número.
+
+Manejar los datos ingresados por el usuario
+Buscamos entonces agregar un libro cuando el usuario ingresa todos los campos y clickea
+el botón de "Agregar lectura". Podríamos estar tentados a agregar una prop de onClick al
+botón y manejarlo de esa forma, pero en realidad lo correcto sería utilizar las bondades del
+elemento form en donde se encuentra el botón y agregarle la proponSubmit al mismo, de
+ lasiguiente forma:
+<formonSubmit={submitBookHandler}>
+submitBookHandler será nuestra función a cargo de realizar el submit justamente.
+Analicemos un poco la función anterior:
+● event.preventDefault() previene que se dispare un evento automático, en el cuál la
+página luego de realizar submit vuelve a recargarse. Como no queremos realizar
+un reload, preventDefault() nos permite evitar ese comportamiento.
+● Luego, crearemos un objeto con los valores actuales del formulario. Fijémonos que
+en la propiedad dataRead debemos crear el objeto Date a partir de la fecha
+ingresada, de manera que el dato sea de tipo date y no string.
+● Luego, comprobamos que el objeto se creó correctamente en la consola.
+
+
+Limpieza de los input y el concepto de two-waybinding
+¿Cómo podemos hacer para limpiar el contenido de los input luego de que el usuario
+agrega la lectura, por si quiere agregar nuevas? Podríamos directamente llamar a las
+funciones set con una cadena vacía, pero eso no haría que el valor del input que se
+muestra cambie.
+Utilizaremos en realidad, el concepto de two-waybinding. El mismo refiere a que lo que yo
+ingreso en el input se refleja en el código, y lo que está en el código yo lo reflejo en el input
+(es decir, lo muestro siempre en pantalla).
+Para lograr esto, sencillamente agregaremos la propvalue a nuestro input de title de la
+siguiente manera:
+value = {enteredTitle}
+y luego en nuestra función de submitBookHandler agregamos la línea:
+setEnteredTitle('');
+Y probamos a ver si el input se limpia o no. Realizamos lo mismo con el autor, la cantidad
+de páginas y la fecha.
+Pasar data del componente hijo al componente padre
+Hasta el momento, vimos que es posible pasar data del componente padre al hijo mediante
+la utilización de props, pero, ¿Cómo realizamos el camino inverso? En el caso de que
+quisiéramos pasar, por ejemplo, la data del nuevo libro al componente "App", para que lo
+muestre junto a las otras lecturas ¿Cómo hacemos?
+Primero, nos situaremos en "NewBook" que es el componente padre directo de
+"BookForm". Nos pararemos allí ya que para llegar al componente "App", primero hay que
+pasar por "NewBook". Allí pasaremos como props lo siguiente:
+<BookFormsubmitBookHandler={saveBookDataHandler} />
+La proponBookDataSaved contendrá a la función saveBookDataHandler, la cual se
+encargará de recibir el objeto con el nuevo libro, copiar los contenidos de ese objeto en otro,
+que además le agregue un id random (con la función Math.random() (que no es ideal en
+este caso, pero sirve como ejemplo)) y luego, un console.log() donde podremos ver que
+todo ande correctamente.
+Todo genial, pero ¿De dónde viene el parámetro enteredBookData? Eso es justamente lo
+que nos va a aportar el componente hijo. Nos dirigimos a "BookForm". Allí podremos
+realizar el destructuring de las props para obtener la función onBookDataSaved e invocarla
+dentro de la función que refiere al submit. 
+Ahora, comprobamos su funcionamiento en pantalla, chequeando que el objeto imprima la
+id dentro al objeto nuevo creado en consola.
+Repasemos el camino realizado, ya que es el mismo siempre que queramos pasar data de
+hijo a padre:
+1. Pasamos por props una función que declaramos en el componente padre.
+2. Esa función va a recibir un parámetro, el cual va a ser enviado por el componente
+hijo en el momento que se invoque.
+3. Agregar la invocación de la función en el componente hijo
+Con la sucesiva práctica, estos pasos se irán naturalizando. Realizamos el mismo trabajo
+para pasar esa misma data de "NewBook" a "App".
+Como aún no tenemos los conocimientos necesarios para un correcto funcionamiento de
+listas, todavía no lo agregaremos a nuestra lista existente de libros en "App", sino que solo
+lo imprimiremos en consola.
+Unidad 2.2
+Listas dinámicas y renderizado condicional
+Introducción
+Los últimos dos conceptos vitales básicos que debemos aprender son: el renderizado
+condicional de elementos, es decir, que los componentes se muestran en pantalla si se
+cumple o no cierta condición, y el renderizado de listas de elementos, para poder renderizar
+de manera dinámica dichas listas.
+Renderizando listas con datos
+Como tal vez se imaginen, el listado que poseemos actualmente de lecturas del usuario no
+es muy pragmático ¿Por qué es eso? Debido a que tenemos de manera hardcodeada los
+componentes "BookItem", por lo que si el arreglo cambia y en vez de ser 4 lecturas son 5, 6,
+10, 1256, nuestra aplicación nunca reflejará ese cambio.
+Además, cuando el usuario agrega una lectura realizada a través de nuestro formulario, esa
+lectura no se agrega nunca al arreglo. ¿Cómo podemos hacer para simplificar entonces
+nuestro código?
+Utilizando la función map()
+A través de "App", ya estamos pasando todas las lecturas al componente "Books". Lo que
+debemos hacer ahora es, dentro del jsx que devolvemos, realizar la siguiente declaración
+debajo de "BookFilter":
+Podemos poner las llaves dentro del jsx ya que ese código se va a resolver a una
+expresión. Por cada elemento declarado en el arreglo books, nos devolverá un componente
+"BookItem", conformando efectivamente el arreglo.
+Luego podremos borrar todos los "BookItem" que habíamos declarado abajo, y comprobar
+que funcione la aplicación correctamente. Veremos en consola que aparece una warning
+pero eso lo corregiremos a continuación.
+Agregando una nueva lectura
+Para poder agregar una nueva lectura, vamos a importar la función useState de React en
+“App” y luego vamos a separar el arreglo books del componente ya que queremos declarar
+algo similar a una constante global, es decir, por fuera del componente pero en el mismo
+archivo declararemos:
+Y luego realizaremos el seteo inicial del estado con esa constante.
+Para poder agregar una lectura nueva correctamente, primero deberemos guardar en una
+variable un arreglo con las lecturas anterior distribuido junto a la nueva lectura (que ya la
+obtenemos del componente hijo)
+Recordemos también borrar la llamada a la función toISOString() en “BookForm” ya que
+usaremos los métodos de date para mostrar la info del nuevo libro.
+Comprobamos en nuestra aplicación que todo funcione correctamente. La distribución la
+realizamos al revés (ponemos primero el libro nuevo y luego los antiguos) ya que así
+queremos mostrárselo al usuario, pero generalmente se realiza de manera inversa. 
+Conceptos claves en listas: la propkey
+¿Por qué tenemos una advertencia en consola que nos pide que cada elemento posea una
+prop llamada key? React, para el renderizado de listas de forma dinámica y la correcta
+actualización de las mismas (es decir, para no encontrarse con bugs al momento de
+actualizarlas) utiliza la propkey que permite identificar unívocamente a cada elemento de
+la lista de manera que sea más sencillo llevar cuenta de que elementos han sido creados,
+modificados o eliminados en la lista.
+No es recomendable usar el index del arreglo ya que eso puede llevar a errores al momento
+de actualizar las listas.
+Nota: recordar agregar id's al arreglo inicial de libros en caso de que no lo tengan.
+Desafío
+Debemos agregarle la funcionalidad a la lista para que filtre las lecturas por año, utilizando
+el select que ya creamos.
+Pistas:
+● No es necesario escribir código en ningún otro componente más qué "Books"..
+● Se puede utilizar el método filter nativo de JS moderno.
+● En el caso de utilizar el comparador '===', necesitamos que para que funcione
+ambos valores tienen que ser del mismo tipo, sino utilizar '==' también es válido
+(pero se otorgarán menos puntos).
+Renderizado condicional
+Ahora que tenemos nuestro filtro por año de lecturas, vemos que hay algunos años en el
+filtro que no muestran ningún valor. Es una buena práctica informarle al usuario de alguna
+manera que en ese año no se encontraron lecturas. Para ello, nos aprovecharemos del
+concepto de renderizado condicional.
+El renderizado condicional es una forma de renderizar diferentes elementos en pantalla,
+según una o más condiciones establecidas.
+Agregaremos otra expresión entre llaves dentro de nuestro jsx, arriba del filtrado de
+lecturas. Como bien sabemos, expresiones largas como if, for, y while no están permitidas
+dentro del jsx, pero podremos utilizar una expresión ternaria para saltearnos esta dificultad.
+Entonces, deseamos mostrar en el caso que la longitud de lecturas filtradas sea 0, un
+elemento p que nos indique que no hay lecturas para ese año. En el caso de que sí,
+utilizamos la lógica que veníamos aplicando. Eso se puede escribir de la siguiente manera:
+Unidad 3.1
+Formularios avanzados y enrutado
+Formularios avanzados
+Introducción
+Mediante la creación de una pantalla de Login para el usuario, mostraremos los usos del
+hookuseRef y la implementación del enrutado en un sitio web, que nos permite movernos
+entre componentes que simulan ser diferentes páginas de HTML.
+Creando el Login
+Nuestro componente Login va a ser un sencillo componente de inicio de sesión, que
+poseerá dos input (uno para el email y otro para el password) y un botón que, al iniciar
+sesión correctamente, le muestra nuestra página al usuario.
+Crearemos entonces nuestro Login, dentro de la carpeta form:
+Ese Login va acompañado de su Login.css, y para poder verlo debemos comentar todo el
+JSX que se encuentra dentro de App e importar el componente Login.
+Ejercicio
+Armar los manejadores de eventos y los estados necesarios para guardar en dos estados
+distintos los valores actualizados en tiempo real que ingresa el usuario de “email” y
+“password”.
+Luego, agregar un manejador de click que cuando el usuario clickee Iniciar Sesión, le
+muestre una alerta de Navegador que diga “El email ingresado es: (valor del email) y el
+password (valor del password)”
+Implementando useRef
+El concepto de referencias (o refs en React) nos permite acceder a los elementos nativos
+del DOM, de manera que tengamos dentro del código, un snapshot de lo que está
+sucediendo en el DOM.
+¿Para qué se utiliza esto? Esto nos permite tanto obtener el valor actual del elemento (como
+por ejemplo en los formularios) como también aplicar eventos en el mismo (focus, blur).
+Vamos a crear dos referencias a los input de email y password en nuestro Login. Los
+mismos se escriben de la siguiente manera:
+constnameRef = useRef(null);
+Recordemos importar useRef de react para poder utilizarlo.El parámetro que enviamos
+dentro del useRef (en este caso null) es el valor con el que va a comenzar esa referencia.
+Luego, para finalizar agregamos las referencias a los elementos de JSX
+Manipulando el DOM con las referencias
+Lo que buscamos es que si el usuario no ingresa email o password, se haga foco en el
+componente que ha dejado vacío (o en alguno de ellos si dejó vacío los dos) y además se
+ponga el borde rojo a manera de hacerle entender que hubo un error.
+Para poder acceder al valor que se encuentra en el input tenemos dos opciones:
+- Tomarlo del valor que se encuentra en el estado.
+- Tomarlo del valor que se encuentra en la referencia.
+Según React, la opción más prolija es la que usa el estado (ver componentes
+controlados vs componentes no controlados más abajo). A modo de ejemplo, vamos
+aplicar uno por cada input. 
+Para acceder al valor de una referencia, debemos acceder al objeto current y luego a value.
+Ahora, si queremos implementar el foco en aquél que no posee valor, y a su vez cambiar su
+estilizado:
+La propiedad style del objeto current nos permite aplicar CSS directamente en el elemento.
+Ahora, en los controladores de onChange debemos hacer que cuando el usuario escriba
+sobre esos input, se quiten los bordes rojos. Para ello:
+Componentes controlados vs componentes no controlados
+Debido a que el uso de refs en React nos permite cambiar el valor e interactuar con los
+elementos del formulario, ha nacido durante los últimos años dos terminologías distintas
+para sí el componente maneja los valores internos mediante React o mediante refs.
+Si por ejemplo, los valores de título, autor, fecha de lectura y cantidad de páginas lo
+modificamos accediendo por refs (es decir, nombreDeRef.current.value), el componente
+sería no controlado, ya que las actualizaciones de esos valores no corre por React, sino
+por el DOM del navegador.
+Si los valores de esos inputs los actualizamos por estado, el componente es controlado, ya
+que React controla qué está pasando internamente mediante el estado.
+Hay que tener en cuenta que el uso de refs no dispara una reevaluación del
+componente. React en su documentación recomienda que, en la mayor parte de los casos,
+utilicemos componentes controlados, de manera de que el código sea más limpio y trazable.
+Enrutado en aplicaciones React
+Si recordamos en la introducción de este curso, las aplicaciones React son del tipo SPA
+(single-page application) ¿Qué significa esto? Significa que nuestra aplicación no va a
+recorrer “páginas” diferentes a medida que nos movemos por ella (por ejemplo, yendo de la sección home a contacts) sino que se va a mover a través de componentes, lo que quiere
+decir, que nuestra app va a ser insertada en un solo archivo HTML.
+Para lograr este tipo de navegación, se utiliza la librería react-router, que nos permitirá
+definir rutas (o también conocidas como paths) para cada uno de los componentes.
+Supongamos que quisiéramos hacer que cuando cargue la aplicación, nos levante el
+componente Login.js, y, una vez que el usuario inició sesión, lo redirigimos a nuestra página
+principal en bookschampions.
+Bueno, para ello primero debemos instalar la librería, colocando esto en la terminal de
+nuestroproyecto:
+npmi react-router react-router-dom
+Luego, vamos crear un componente llamado Dashboard, el cuál contendrá todo el código
+referido a los libros:	
+Ahora si, podemos armar el enrutado en App, que va a ser allí ya que es nuestro
+componente más arriba en el árbol de los mismos, entonces será él quien decida qué
+componente ver en cada ruta.
+Lo primero que armamos es el directorio:
+El directorio de rutas se crea mediante la función createBrowserRouter, que espera como
+parámetro un arreglo de objetos, donde especifica el path junto al componente que debe
+renderizar en dicho path. En la imagen de arriba, en /login renderizamos Login y en /home
+renderizamos el Dashboard.
+Luego, debemos colocar ese router dentro del componente RouterProvider:
+Ahora si probamos el cambio de rutas, debería mostrarnos los diferentes componentes.
+Rutas protegidas
+Las rutas protegidas (protectedroutes) son aquellas rutas o paths que el usuario solo puede
+acceder mediante determinadas condiciones, sean estas por ejemplo un rol de usuario
+específico, poseer un permiso específico o al menos, estar logueado en la aplicación.
+Aquellas rutas que no están protegidas se la denomina rutas públicas (publicroutes)
+Haremos entonces que la ruta /login sea una ruta pública y /home una ruta protegida, que
+no puede ser accedida al menos que el usuario esté logueado en la app.
+Primero, crearemos el componente que le va a agregar la protección a la ruta, llamado
+“Protected”:
+Protected recibe por propsisSignedIn y children, allí si isSignedIn es verdadero devuelve
+children y sino, lo redirige a /login mediante el componente Navigate del react-router.
+Luego agregaremos Protected a la ruta deseada: 
+¿De donde obtenemos el valor isSignedIn? Sencillamente agregamos un estado (loggedIn)
+en App, que luego que el usuario hizo log in se convierta en verdadero, de la siguiente
+manera:
+Enviamos esa prop a Login, y luego hacemos que suba el estado si cumple las
+verificaciones:
+Luego, en Login:
+De esta manera realizaremos el cambio de estado, solo falta pasarle por prop el valor
+isLoggedIn a Protected.
+Finalmente, queremos que cuando hace log in la app navegue automáticamente al usuario
+a /dashboard. Para ello, podemos utilizar el customhook de react-router llamado
+useNavigate: 
+Unidad 4.1 
+Efectossecundarios
+Introducción
+En esta unidad vamos a dar nuestros primeros pasos en conceptos avanzados (pero
+altamente requeridos para un desempeño laboral) de React. Estos tres conceptos son:
+● Efectos secundarios o paralelos.
+● Manejando estados más complejos con Reducers.
+● Manejando el estado global de la aplicación mediante Context.
+Los dos puntos marcados en negrita son aquellos que vamos a hacer un mayor hincapié en
+esta unidad, ya que son de un uso más cotidiano en el desarrollo web moderno.
+Efectos secundarios o paralelos
+¿Qué son los efectos secundarios?
+El objetivo principal de React se divide en dos partes: el renderizado de la interfaz de
+usuario y reaccionar ante los inputs del usuario. Dentro de esos dos objetivos se
+encuentran sub-objetivos tales como:
+● Evaluar y renderizar JSX.
+● Manejar el state y las props.
+● Reaccionar a eventos e inputs que genera el usuario.
+● Re-evaluar componentes ante cambios de props y state.
+Todo esto lo cubre la librería React mediante las herramientas y features que ya vienen
+consigo misma.
+¿Qué son entonces los efectos, o los efectos secundarios? Bueno, todo lo demás.
+Son tareas que suceden por fuera del ciclo de vida normal de los componentes, ya que
+pueden llegar a bloquear o a retrasar el renderizado de los mismos. Los efectos se usan en
+general para:
+● Mandar pedidos al servidor mediante el protocolo HTTP.
+● Guardar data en el Data Storage del navegador.
+● Poner y manejar temporizadores.
+Para manejar los efectos secundarios, React nos proveé con otro hook en su librería:
+useEffect.
+useEffect( () => { }, [ dependencias ] );
+Analicemos su estructura:
+● Posee dos parámetros:
+○ El primero es una función (una callback, como una arrow function) que se
+ejecutará después de cada evaluación del componente solo si las
+dependencias especificadas cambiaron.
+○ El segundo parámetro es un arreglo donde se escriben las dependencias que
+useEffect debe escuchar.
+Usando useEffect()
+Nosotros, al agregar libros dentro de nuestra aplicación y recargar la página, dichos libros
+agregados se pierden, ya que React no tiene forma de mantenerlos en el estado una vez
+que la app se vuelve a reconstruir.
+Lo que podríamos hacer es guardar dichos libros en el navegador, en su Local Storage, y
+cada vez que la aplicación se vuelve a levantar, tomar esos libros del Local Storage y no de
+DUMMY_BOOKS.
+Entonces, en la función de agregado de libro en App.js, escribimos el siguiente código:
+De manera que se guarde el arreglo de libros en el local storage. Luego, para obtenerlo
+podríamos escribir un código similar a este:
+Donde obtenemos los libros guardados y los seteamos en el estado, pisando a los
+DUMMY_BOOKS. El problema de este código es que genera un loop infinito que rompe
+nuestra aplicación, debido que cada vez que evalúa el componente App, toma los libros
+guardados, setea el estado y eso vuelve a generar una evaluación del componente y así
+sucesivamente. El código correctamente debería estar así:
+El arreglo de dependencias vacío en el segundo parámetro, indica que el useEffect se ejecutará sólo una vez después de evaluado / renderizado el componente: se renderiza App → se dispara el useEffect al terminar de renderizar App → dentro del
+useEffect se setea un estado, que dispara una re evaluación del componente app →
+useEffect no se vuelve a disparar ya que lo hace solo cuando se monta el componente
+De esta manera, podremos persistir la data de los libros incluso si actualizamos
+nuevamente la página.
+useEffect y dependencias
+Nota: la validación dada a continuación es a modo de ejemplo ya que en líneas generales,
+las validaciones deberían realizarse a nivel de eventos y mediante el estado, y no por
+useEffect.
+¿Qué sucede si deseamos cambiar el estado cuando varias propiedades cambian a la vez?
+Por ejemplo, si buscamos que el botón de “Agregar Lectura” solo se habilite cuando haya
+valores en los 4 input de BookForm.
+En ese caso podríamos utilizar el useEffect con dependencias. Primero, seteamos un
+estado formValid inicializado en falso:
+Luego, borraremos el onSubmit en el formulario, y agregaremos el método como onClick,
+cambiando el type a button y agregando disabled de manera que estará deshabilitado
+cuando el formulario no sea válido:
+En BookForm.css agregamos los siguientes estilos:
+Ahora, con respecto al useEffect, deseamos setear el formulario válido solo si todos los
+campos poseen valor:
+Entonces, el useEffect luego de cada vez que se re-evaluó el componente por un cambio en
+alguna de las 4 propiedades especificadas, seteará el estado según dichas propiedades
+actualizadas.
+¿Qué usar y qué no usar como dependencias?
+Como dependencias no deberíamos usar:
+● Funciones que actualizan el estado (setFormValid por ejemplo)
+● Funciones de API built-in (como por ejemplo, las que trabajan con el local storage o
+las que conectan con el backend (fetch))
+● Variables o funciones definidas por fuera del componente
+Básicamente, no debemos agregar nada que no vaya a cambiar durante el ciclo de vida del
+componente.
+La cleanupfunction
+Si agregaramos un console.log(‘Checkingform’) dentro de nuestro useEffect, veremos que
+el mismo se ejecuta cada vez que nosotros presionamos una tecla dentro de cualquiera de
+los inputs.
+El efecto está seteando un estado, es decir, el código es correcto, pero, ¿Qué sucedería si
+dentro del efecto hubiera una request al backend? Por cada tecla que presiona el usuario se
+enviaría un pedido al servidor, lo que causaría un montón de tráfico y haría muy pesado
+nuestro sitio web.
+Una técnica que podemos usar para evitar esto es la de debounce. La técnica de debounce
+implica poner un timer dentro del código para que cuando el usuario deje de escribir por un
+determinado tiempo, ahí sí se ejecute el bloque de código en su interior, de la siguiente
+manera:
+500 representa en milisegundos el delay que se va a producir.
+El timer creado, necesita ser “limpiado” en cada uno de los renderizados, para que no siga
+funcionando y genere lentitud en el sitio web. La limpieza la podemos realizar justamente,
+con la cleanupfunction, que es la callback que retorna el useEffect.
+La cleanup se ejecuta luego de cada renderizado del componente, menos en su primer
+renderizado. Comprobamos su funcionamiento tipeando en los inputs, veremos que solo el
+console.log de cleanup se ejecuta ante cada tecla ingresada por el usuario. Cuando este
+deja de escribir, el código espera medio segundo y recién ahí imprime “checkform”.
+Observemos entonces que si tuvieramos una HTTP request dentro del useEffect, en vez de
+enviar múltiples llamadas al servidor en un lapso de tiempo corto, enviamos una sola, de
+manera que optimizamos al máximo los recursos necesarios.
+Aprendiendo a comunicarse con el servidor: requests
+Hasta este momento hemos trabajado y desarrollado teniendo solo en cuenta la capa
+Cliente, es decir, solo mirando y utilizando al navegador para poder manejar los datos que
+desea guardar y/o visualizar el cliente.
+En el desarrollo moderno, la mayoría de las aplicaciones web se construyen con 3 capas en
+mente: Cliente, Servidor y Base de Datos.
+Hay dos grandes formas de interactuar en las 3 capas:
+- El cliente solicita información (GET): a través de un formulario / buscador /
+herramienta de UI/UX, el cliente solicita datos al servidor, que a su vez este realiza la
+consulta (query) dentro de la base de datos. La base de datos devuelve los valores
+requeridos que luego el servidor envía al cliente para su visualización.
+- El cliente desea guardar información(POST): a través de un formulario / herramienta
+de UI/UX, el cliente solicita guardar nuevos datos al servidor, que a su vez este
+realiza la inserción correspondiente dentro de la base de datos. La base de datos
+guarda los valores requeridos.
+Estas comunicaciones se realizan mediante requests o pedidos al servidor a partir del
+cliente.
+Vamos a utilizar el hook de useEffect para ejemplificar ambas requests, ya que como vimos
+anteriormente, las comunicaciones hacia el servidor son un side-effect por fuera de React. A
+su vez, nuestro servidor lo vamos a montar utilizando la fake-api-nodejs , que es la
+recomendación de la cátedra para utilizar en el TPI.
+Instrucciones para montar el servidor localmente
+Primero deberemos realizar un fork al siguiente repositorio:
+https://github.com/gabrielgolzman/fake-api-nodejs
+Allí realizamos un git clone y corremos el comando:
+npm i
+o en caso que nos de error:
+npm i -force
+Esto va a instalar las librerías necesarias sin tener en cuenta dependencias relacionadas,
+ya que fake-api pueda que tenga dependencias desactualizadas, pero para lo que vamos a
+usarla nosotros no es necesario esas funcionalidades.
+Luego, abrimos nuestra aplicación de fake-api con el Visual Studio y corremos el comando:
+node server.js
+Debería aparecernos un mensaje de este estilo: Que nos especifica que tenemos montado nuestro servidor en local para poder hacerle
+requests. El servidor (mientras lo tengamos corriendo) se aloja en el puerto 8000 de nuestra
+pc.
+Luego de esto, modificaremos (o en todo caso, agregaremos si no queremos modificar la
+data) del archivo database.json:
+Analicemos la función anterior:
+● fetch es una función asíncrona de javascript que me permite realizar requests al
+servidor. Posee dos parámetros:
+○ La URL / endpoint donde queremos realizar el pedido.
+○ Un objeto javascript con los headers requeridos de la request (en ellos puede
+ir el token, el tipo de archivo que esperamos recibir / mandar, etc
+● Luego, utilizamos la función .then (función nativa de JS que nos permite realizar
+operaciones una vez que la promesa se cumplió exitosamente ) para que la
+respuesta de ese GET la podamos transformar en JSON (recordemos que en los
+headers especificamos que aceptamos que la respuesta sea en JSON pero no nos
+garantiza que el stream de datos vuelva en ese formato).
+Finalmente otro .then para resolver la promesa anterior (la transformación a JSON) y
+realizar las operaciones que deseemos con la data obtenida.
+● La función .catch se ejecuta si la promesa original no se resolvió exitosamente, y
+obtiene como parámetro el error ocurrido, lo que nos permite realizar el manejo de
+errores dentro de nuestra aplicación (ejemplo: si fue un 401 notauthorized, hacerle
+saber al usuario que no tiene permisos para realizar esa request )
+Toda esa función la podemos colocar en un useEffect dentro del componente Dashboard:
+Y luego comprobamos que efectivamente nos traiga los libros guardados en fake-api..
+Arreglos previos al código anterior:
+● Debemos asegurarnos que esté el condicional que en el caso de que no haya libros
+al iniciar la aplicación dentro del componente Books
+● Como se ve en la imagen con el useEffect, antes de poder setear el nuevo arreglo
+de libros debemos mapearlo de manera que la dateRead (que en fake-api la
+tenemos como string) se transforme en un objeto Date y el componente DateRead
+no nos genere un error al tratarlo.
+Pedir la creación / modificación de datos al servidor
+Nuestro objetivo ahora es que luego de agregar lectura, no solo se agregue la misma en el
+estado, sino que también a la base de datos. Para ello utilizaremos de vuelta la función
+fetch:
+Analicemos las diferencias:
+1. Primero, como en mockAPI la dateRead espera que sea una cadena de caracteres y
+no un objeto Date, la transformamos en ISO String y luego solo tomamos los
+primeros 10 caracteres (año - mes - día).
+2. A su vez, fake-api nos solicita identificar a cada objeto de la base de datos con un
+ID, por ende realizamos el cálculo del ID como el último ID + 1.
+3. La URL es la misma que la de GET, solo que tenemos que aclarar en los headers
+que:
+a. El método a usar es POST.
+b. El tipo de contenido que se envía es application/json
+c. El cuerpo o body de la request, donde enviaremos los datos que deseemos.
+4. En el primer then, haremos un chequeo de si la respuesta estuvo okay (si el código
+de respuesta fue entre el 200 y el 299). Esto nos ayudará en el caso de que el error
+tenga relación con el parseo del JSON o de cuestiones específicas de la response.
+5. En el segundo then, teniendo en cuenta que la promesa tuvo éxito, actualizaremos el
+navegador de manera que el cliente no necesite refrescar la página para ver el
+nuevo libro agregado.
+6. Luego tenemos el catch para poder tomar los errores si la promesa no se pudo
+resolver correctamente.
+Existen otros métodos de request (PUT, PATCH, DELETE) que siguen la fórmula del POST
+pero realizan funcionalidades distintas (PUT - modificar valores, PATCH - modificar
+propiedad de una entidad, DELETE - eliminar una entidad).
+useReducer y la lógica compleja de estado
+No es muy común, pero sí posible que tengamos componentes con varios estados
+relacionados entre sí, con una complejidad alta y que no deseemos pasarlos al contexto (ya
+que son estados a los que solo tiene que acceder el componente padre y sus hijos, por
+ende no tiene sentido de guardar una store)
+En esos casos, es conveniente que nuestros múltiples estados sean reducidos a un único
+estado el cual actualizaremos mediante el dispatch (envío) de actions (acciones) con la
+información requerida para dicha actualización.
+Dichas acciones además nos permiten desarrollar código más complejo durante cada
+actualización de estado, dependiendo de la acción que ocurre.
+Veremos a continuación un ejemplo con nuestro formValid para el books-champion
+
+
+Uso del useReducer
+Deseamos entonces tener un estado en conjunto, llamado form que poseerá los valores
+actuales del formulario (title, author, pageCount, dateRead ) junto a una propiedad booleana
+que permita determinar si el formulario es válido o no.
+Agregamos la siguiente línea a nuestro componente BoofForm:
+Aquí, poseemos un hook que estructura un arreglo. Analicemoslo por partes:
+- bookFormReducer es nuestra función externa del componente que se va a encargar
+de realizar las actualizaciones de estado y modificaciones deseadas. Un ejemplo de
+ese reducer podría ser:
+El reducer siempre recibe un snapshot del estado (es decir, el estado en el momento
+exacto en que invocamos dicho reducer) y una acción, que contiene la información
+requerida para realizar la actualización (el tipo de acción y el valor con el que lo
+vamos a actualizar).
+En general, los reducer siempre poseen un condicional switch en donde se pregunta
+qué tipo de acción es, se realiza la modificación correspondiente y se devuelve el
+estado modificado. En caso de que no corresponda con ninguna especificación
+(default) devolvemos el mismo estado que enviamos.
+- initialBookForm es, similar a useState, el valor inicial para el reducer:
+- dispatch va a ser la función que llama al reducer. Fijemonos que no es necesario
+enviar el estado como primer parámetro de la función, react ya realiza esa inserción
+automáticamente:
+- bookForm es el valor de seguimiento dentro de nuestro componente: 
+Unidad 4.2
+Contexto
+Contexto en React
+Introducción
+Hemos visto que para poder pasar valores entre componentes solo lo podemos hacer de
+manera vertical, sea hacia abajo mediante la utilización de props o hacia arriba utilizando
+una callback para subir los valores al componente padre.
+Si esos valores deseamos pasarlos a través de varios nodos, es cuestión solo de atravesar
+esos componentes “de paso” hasta llegar al componente deseado. Esta acción, además de
+poco práctica a nivel de consistencia de código, nos lleva a tener una aplicación que sufre
+del propsdrilling, donde ciertos valores tengo que movilizarlos a través de todos los
+componentes (pensemos en la opción de tema claro o tema oscuro para la app, donde
+todos los componentes de nuestra aplicación cambian su color teniendo en cuenta esta
+opción)
+Ejemplo de propsdrilling para subir el valor de la id desde ToggleTodo a Todos
+Además, recordemos que el pasaje de valores de manera horizontal no es posible en React,
+para ello solo podemos subir el valor hasta un componente padre en común y luego bajar
+por props dicho valor.
+La store como solución
+Librerias como Redux (y, el contexto en React) nos traen la solución a estos problemas
+mediante la implementación de una store (tienda) en donde guardamos todos los valores
+que deseemos que accedan los componentes (los componentes seleccionados que tienen
+permitido acceder a estos valores serán determinados por el provider (proveedor).
+Estos valores pueden incluso ser funciones que realizan modificaciones deseadas.
+En la imagen anterior, vemos la diferencia utilizando Context en React. Sin Context,
+debemos pasar la lista de autos desde que se obtiene en App hasta llegar a Car.js.
+Luego con la utilización de un provider que encierre a App, el Car Context ya le proporciona
+a Car la lista de autos sin la necesidad de pasar por el componente Product
+En el desarrollo del curso ya hemos visto un ejemplo de proveedor en la implementación del
+RouterProvider en la sección de ReactRouter.
+Múltiples contextos
+React nos permite crear múltiples contextos que convivan según las necesidades de la
+aplicación. A continuación, armaremos 3 distintos:
+● AuthenticationContext: en donde el usuario al hacer login, guarde su email.
+● ThemeContext: en donde mediante un swich en la UI, intercambie el tema de la
+aplicación.
+● APIContext: en donde podamos disparar un estado de Login en nuestra página
+AuthenticationContext
+Para poder crear un contexto nuevo, crearemos la carpeta services dentro de components y
+creamos la carpeta authentication, que contendrá el archivo authentication.context.js
+En ese archivo haremos dos exportaciones distintas, uno para el provider y otro para .el
+context. A su vez, setearemos en la store tres valores: el user (solamente su email) y las
+funciones handleLogin y handleLogout:
+En este contexto:
+● Declaramos por fuera del proveedor un userValue que tomará el valor de lo que
+tengamos guardado en el localStorage con la key “user”.
+● Nuestro proveedor posee un estado que comienza con ese valor obtenido y
+formateado del localStorage.
+● Luego, en el handleLogin tomamos el parámetro del email y seteamos tanto el
+estado como el local storage.
+● En el handleLogout, quitamos el ítem del local storage y seteamos el estado en null.
+El proveedor retorna en su jsx entonces al contexto invocando al .Provider para que arme la
+store con los valores que le pasamos en value (value debe ser si o si un objeto).
+Finalmente con el concepto de composición devolvemos lo que encierra este jsx.
+Ahora debemos realizar múltiples cambios en nuestro código para que refleje esta nueva
+sintaxis.
+Cambiaremos la función onLogin por nuestro handleLogin del AuthenticationProvider. La
+forma que se muestra la línea 13 es la forma de acceder al contexto, utilizando el hook
+useContext y desestructurando sus propiedades.
+Protected
+En Protected, sencillamente veremos si hay un usuario seteado, si no lo redirigeremos al
+Login.
+Dashboard
+1. Obtener el handleLogout y el user del contexto. Luego obtendremos la parte
+izquierda del string del email como si fuera su nombre de usuario.
+2. Implementaremos el handleLogout
+3. Luego agregaremos un mensaje en la columna continua al cerrar sesión para
+confirmar que el email se guardó correctamente.
+ToggleTheme
+Crearemos el componente ToggleTheme, que nos permitirá cambiar el tema de la aplicación
+mediante un botón:
+
+API Context
+El último contexto que vamos a crear nos permitirá lograr que en cada una de las llamadas
+al servidor, antes de que la misma se resuelva o se rechace, renderizar un spinner para
+darle a entender al usuario que se está cargando su solicitud.
+Para ello, agregamos una carpeta llamada api a services, y luego un archivo llamado
+api.context:
+Sandwich de proveedores
+Es muy probable que a medida que agreguemos providers a nuestra app, nos quede poco
+limpio a la vista del desarrollador, en caso de que desee acceder al index.js (o a App o
+donde sea que hayamos puesto los proveedores).
+Agregamos la carpeta util a components, y en ella creamos el componente
+WrapperProvider, de la siguiente manera:
